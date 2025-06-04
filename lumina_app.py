@@ -18,7 +18,9 @@ work_interest = st.selectbox("Declining Interest in Work", ["Yes", "No"])
 social_weakness = st.selectbox("Social Weakness", ["Yes", "No"])
 
 if st.button("Predict Coping Status"):
-    # Use correct column names and DataFrame format
+       import pandas as pd
+
+    # Use column names that match the training DataFrame
     user_input = pd.DataFrame([{
         "Growing_Stress": growing_stress,
         "Mood_Swings": mood_swings,
@@ -29,6 +31,7 @@ if st.button("Predict Coping Status"):
     }])
 
     encoded_input = encoder.transform(user_input)
+
     prediction = model.predict(encoded_input)
     label = label_encoder.inverse_transform(prediction)[0]
     st.success(f"🧠 Predicted Coping Status: **{label}**")
