@@ -1,5 +1,6 @@
 import streamlit as st
 import joblib
+import pandas as pd
 
 # Load model and encoders
 model = joblib.load("lumina_model.pkl")
@@ -17,9 +18,7 @@ work_interest = st.selectbox("Declining Interest in Work", ["Yes", "No"])
 social_weakness = st.selectbox("Social Weakness", ["Yes", "No"])
 
 if st.button("Predict Coping Status"):
-       import pandas as pd
-
-    # Use column names that match the training DataFrame
+    # Use correct column names and DataFrame format
     user_input = pd.DataFrame([{
         "Growing_Stress": growing_stress,
         "Mood_Swings": mood_swings,
@@ -28,8 +27,6 @@ if st.button("Predict Coping Status"):
         "Work_Interest": work_interest,
         "Social_Weakness": social_weakness
     }])
-
-    encoded_input = encoder.transform(user_input)
 
     encoded_input = encoder.transform(user_input)
     prediction = model.predict(encoded_input)
